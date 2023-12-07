@@ -41,8 +41,11 @@ namespace GP_GRAPH{
         //Destructor
         ~LinkedList();
 
-        void addUniqueNode(Node v);
+        void addUniqueNode(int v);
         void printList();
+
+        Node* getHead();
+
 
 
 
@@ -81,17 +84,27 @@ namespace GP_GRAPH{
          // BFS
 
          void BFS(int s);
+         void PrintShortestPath(int s, int v);
+
 
 
 
     private:
-        std::set<Node> vertices;
-        std::vector<std::pair<Node, Node>> edges;
+        std::vector<Node> vertices;
+        std::vector<std::pair<int, int>> edges;
 
         // Adjacency List
         // Using a linked list helps easy insertion and deletion
         // also helps with destroying because Linked List has a destructor
         std::vector<LinkedList> adjList;
+
+        std::vector<Color> color;
+        std::vector<int> distance;
+        std::vector<Node*> parent;
+
+        int size;
+
+
 
 
 

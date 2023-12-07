@@ -20,7 +20,7 @@
 #include <vector>
 #include <utility>
 #include <set>
-
+#include <queue>
 #include "graph.h"
 
 namespace GP_GRAPH{
@@ -66,6 +66,13 @@ namespace GP_GRAPH{
         size = 0;
     }
 
+    // getHead Function
+    // -- used to get the head of the linked list
+    // --- used in the adjacency list
+    Node* LinkedList::getHead(){
+        return head;
+    }
+
 
 //    ---------------------------------------------------------------------------------
 //    ------------------ SPECIAL FUNCTION ---------------------------------------------
@@ -75,8 +82,10 @@ namespace GP_GRAPH{
     // -- used to add a node to the linked list
     // --- come handy with the adjacency list
 
-    void LinkedList::addUniqueNode(Node v){
-        Node* newNode = new Node(v);  // Dynamically allocate memory for the new node
+    void LinkedList::addUniqueNode(int v){
+        Node* newNode = new Node;
+        newNode->vertex = v;
+        // Dynamically allocate memory for the new node
         newNode->next = nullptr;
 
         if (head == nullptr) {
@@ -86,7 +95,7 @@ namespace GP_GRAPH{
             bool found = false;
             Node* temp = head;
             while (temp != nullptr) {
-                if (temp->vertex == v.vertex) {
+                if (temp->vertex == v) {
                     found = true;
                     break;
                 }
@@ -128,11 +137,17 @@ namespace GP_GRAPH{
     //Default Constructor
     Graph::Graph(){
         // empty vertices vector
-        vertices = std::set<Node>();
+        vertices = std::vector<Node>();
         // empty edges vector
-        edges = std::vector<std::pair<Node, Node>>();
+        edges = std::vector<std::pair<int, int>>();
         // empty adjacency list
         adjList = std::vector<LinkedList>();
+
+        size = 0;
+        color.resize(size);
+        distance.resize(size);
+        parent.resize(size);
+
 
 
     }
@@ -149,13 +164,20 @@ namespace GP_GRAPH{
             Node v2;
             v2.vertex = edge.second;
 
-            std::pair<Node, Node> newEdge = std::make_pair(v1, v2);
+            std::pair<int, int> newEdge;
+            newEdge = std::make_pair(edge.first, edge.second);
             edges.push_back(newEdge);
 
-            vertices.insert(v1);
-            vertices.insert(v2);
+            vertices.push_back(v1);
+            vertices.push_back(v2);
 
         }
+
+        size = vertices.size();
+        color.resize(size);
+        distance.resize(size);
+        parent.resize(size);
+
 
         updateAdjList();
 
@@ -176,7 +198,7 @@ namespace GP_GRAPH{
             Node v2;
             v2.vertex = edge.second;
 
-            std::pair<Node, Node> newEdge = std::make_pair(v1, v2);
+            std::pair<int, int> newEdge = std::make_pair(edge.first, edge.second);
             edges.push_back(newEdge);
 
         }
@@ -184,8 +206,13 @@ namespace GP_GRAPH{
         for( int vertex: vertexList){
             Node v;
             v.vertex = vertex;
-            vertices.insert(v);
+            vertices.push_back(v);
         }
+
+        size = vertices.size();
+        color.resize(size);
+        distance.resize(size);
+
 
         updateAdjList();
     }
@@ -201,11 +228,11 @@ namespace GP_GRAPH{
         Node v2Node;
         v2Node.vertex = v2;
 
-        std::pair<Node, Node> edge = std::make_pair(v1Node, v2Node);
+        std::pair<int, int> edge = std::make_pair(v1, v2);
         edges.push_back(edge);
 
-        vertices.insert(v1Node);
-        vertices.insert(v2Node);
+        vertices.push_back(v1Node);
+        vertices.push_back(v2Node);
         updateAdjList();
     }
 
@@ -215,7 +242,7 @@ namespace GP_GRAPH{
     void Graph::addNode(int v){
        Node newNode;
          newNode.vertex = v;
-         vertices.insert(newNode);
+         vertices.push_back(newNode);
     }
 
 
@@ -242,8 +269,12 @@ namespace GP_GRAPH{
 
         // Adding nodes to the adjacency list
         for(int i = 0; i < edges.size(); i++){
-            adjList[edges[i].first.vertex -1 ].addUniqueNode(edges[i].second);
-            adjList[edges[i].second.vertex - 1].addUniqueNode(edges[i].first);
+
+
+
+
+            adjList[edges[i].first -1 ].addUniqueNode(edges[i].second);
+            adjList[edges[i].second - 1].addUniqueNode(edges[i].first);
         }
 
 
@@ -277,7 +308,51 @@ namespace GP_GRAPH{
 
     void Graph::BFS(int s){
 
+        for(int i = 0; i < size; i++){
+            color[i] = Color::WHITE;
+            distance[i] = 0;
+            parent[i] = nullptr;
+        }
+
+        color[s-1] = Color::GRAY;
+
+        std::queue<Node*> eQueue;
+        eQueue.push(&vertices[s-1]);
+
+        while(!eQueue.empty()){
+            Node* qHead = eQueue.front();
+            eQueue.pop();
+            Node* u = adjList[qHead->vertex - 1].getHead();
+
+            while(u != nullptr){
+                if(color[u->vertex - 1] == Color::WHITE){
+                    color[u->vertex - 1] = Color::GRAY;
+                    distance[u->vertex - 1] = distance[qHead->vertex - 1] + 1;
+                    parent[u->vertex - 1] = qHead;
+                    eQueue.push(u);
+                }
+                u = u->next;
+            }
+            color[qHead->vertex - 1] = Color::BLACK;
+        }
     }
+
+
+    // Print Shortest Path Function
+    // - takes a source vertex and a destination vertex as arguments
+    // -- prints the shortest path from the source vertex to the destination vertex
+
+    void Graph::PrintShortestPath(int s, int v){
+        if(v == s){
+            std::cout << s << " ";
+        }else if(parent[v-1] == nullptr){
+            std::cout << "No Path from " << s << " to " << v << " exists" << std::endl;
+        }else{
+            PrintShortestPath(s, parent[v-1]->vertex);
+            std::cout << v << " ";
+        }
+    }
+
 
 
 

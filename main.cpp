@@ -15,12 +15,17 @@ int main() {
 
 
 
-    std::vector<std::pair<int,int>> edges = {{1,2},{2,3},{1,4},{1,5},{4,5},{3,2},{3,5},{5,6},{1,6},{5,1}};
-    std::vector<int> vertices = {1,2,3,4,5,6};
+    std::vector<std::pair<int,int>> edges = {{1,2},{1,4},{1,5},{2,3},{2,7},{3,4},{3,5},{2,6},{6,7}};
+    std::vector<int> vertices = {1,2,3,4,5,6,7};
 
     Graph g(vertices,edges);
 
     g.printAdjList();
+
+
+
+
+    return 0;
 
 
 
