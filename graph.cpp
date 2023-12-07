@@ -287,8 +287,11 @@ namespace GP_GRAPH{
 
     }
 
+    // Getters
 
-
+    int Graph::getSize(){
+        return size;
+    }
 
 
 
@@ -441,7 +444,7 @@ namespace GP_GRAPH{
     // -- prints the shortest path from the source vertex to the destination vertex
 
     void Graph::PrintShortestPath(int s, int v){
-//        BFS(s);
+        BFS(s);
 
         if(v == s){
             std::cout << s << " ";
