@@ -69,6 +69,14 @@ namespace GP_GRAPH{
         //Construcotr with vertices and edges
         Graph(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList);
 
+        // Copy Constructor
+        Graph(const Graph& g);
+
+        // Assignment Operator
+        Graph& operator=(const Graph& g);
+
+
+
 
         // Internal Graph Member Functions
         ~Graph();
@@ -76,18 +84,28 @@ namespace GP_GRAPH{
         void addNode(int v);
         void updateAdjList();
 
+
+
          // Getters
          void printAdjList();
+            int getSize();
+            std::vector<Node> getVertices();
+            std::vector<std::pair<int, int>> getEdges();
+            std::vector<LinkedList> getAdjList();
+            std::vector<Color> getColor();
+            std::vector<int> getDistance();
+            std::vector<Node*> getParent();
+
 
 
          // Algorithms
          // BFS
 
-         void BFS(int s);
-         void PrintShortestPath(int s, int v);
 
 
 
+        void BFS( int s);
+        void PrintShortestPath( int s, int v);
 
     private:
         std::vector<Node> vertices;
@@ -109,6 +127,9 @@ namespace GP_GRAPH{
 
 
     };
+
+
+
 
 
 

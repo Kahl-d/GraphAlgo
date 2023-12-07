@@ -22,6 +22,10 @@ int main() {
 
     g.printAdjList();
 
+    g.BFS( 5);
+
+    g.PrintShortestPath(1,7);
+
 
 
 

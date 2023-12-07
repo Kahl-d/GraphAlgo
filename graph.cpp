@@ -144,9 +144,7 @@ namespace GP_GRAPH{
         adjList = std::vector<LinkedList>();
 
         size = 0;
-        color.resize(size);
-        distance.resize(size);
-        parent.resize(size);
+
 
 
 
@@ -173,10 +171,7 @@ namespace GP_GRAPH{
 
         }
 
-        size = vertices.size();
-        color.resize(size);
-        distance.resize(size);
-        parent.resize(size);
+
 
 
         updateAdjList();
@@ -204,18 +199,96 @@ namespace GP_GRAPH{
         }
 
         for( int vertex: vertexList){
-            Node v;
-            v.vertex = vertex;
-            vertices.push_back(v);
+
+            addNode(vertex);
         }
 
-        size = vertices.size();
-        color.resize(size);
-        distance.resize(size);
+
 
 
         updateAdjList();
     }
+
+
+    // Copy Constructor
+    Graph::Graph(const Graph& g){
+
+        for (std::pair<int, int> edge: g.edges) {
+
+            Node v1;
+            v1.vertex = edge.first;
+            Node v2;
+            v2.vertex = edge.second;
+
+            std::pair<int, int> newEdge;
+            newEdge = std::make_pair(edge.first, edge.second);
+            edges.push_back(newEdge);
+
+            vertices.push_back(v1);
+            vertices.push_back(v2);
+
+        }
+
+
+
+
+        updateAdjList();
+
+        int length = vertices.size();
+        color.resize(length);
+        distance.resize(length);
+        parent.resize(length);
+
+        for(int i = 0; i < length; i++){
+            color[i] = g.color[i];
+            distance[i] = g.distance[i];
+            parent[i] = g.parent[i];
+        }
+
+
+
+    };
+
+    // Assignment Operator
+    Graph& Graph::operator=(const Graph& g){
+
+        if(this == &g){
+            return *this;
+        }
+
+        for (std::pair<int, int> edge: g.edges) {
+
+            Node v1;
+            v1.vertex = edge.first;
+            Node v2;
+            v2.vertex = edge.second;
+
+            std::pair<int, int> newEdge;
+            newEdge = std::make_pair(edge.first, edge.second);
+            edges.push_back(newEdge);
+
+            vertices.push_back(v1);
+            vertices.push_back(v2);
+
+        }
+
+        updateAdjList();
+
+        int length = vertices.size();
+        color.resize(length);
+        distance.resize(length);
+        parent.resize(length);
+
+        for(int i = 0; i < length; i++){
+            color[i] = g.color[i];
+            distance[i] = g.distance[i];
+            parent[i] = g.parent[i];
+        }
+
+    }
+
+
+
 
 
 
@@ -243,6 +316,11 @@ namespace GP_GRAPH{
        Node newNode;
          newNode.vertex = v;
          vertices.push_back(newNode);
+
+        size = vertices.size();
+        color.resize(size);
+        distance.resize(size);
+        parent.resize(size);
     }
 
 
@@ -277,6 +355,11 @@ namespace GP_GRAPH{
             adjList[edges[i].second - 1].addUniqueNode(edges[i].first);
         }
 
+        size = vertices.size();
+        color.resize(size);
+        distance.resize(size);
+        parent.resize(size);
+
 
     }
 
@@ -284,6 +367,7 @@ namespace GP_GRAPH{
     // Print Adjacency List Function
 
     void Graph::printAdjList(){
+        std::cout<< "Adjacency List: " << std::endl;
         for(int i = 0; i < adjList.size(); i++){
             std::cout << i + 1 << " : ";
             adjList[i].printList();
@@ -306,43 +390,59 @@ namespace GP_GRAPH{
     // - takes a source vertex as an argument
     // -- prints the BFS tree from the source vertex
 
-    void Graph::BFS(int s){
-
-        for(int i = 0; i < size; i++){
+    void Graph::BFS( int s) {
+        for (int i = 0; i < size; i++) {
             color[i] = Color::WHITE;
             distance[i] = 0;
             parent[i] = nullptr;
         }
 
-        color[s-1] = Color::GRAY;
+        color[s - 1] = Color::GRAY;
 
         std::queue<Node*> eQueue;
-        eQueue.push(&vertices[s-1]);
+        eQueue.push(&vertices[s - 1]);
 
-        while(!eQueue.empty()){
-            Node* qHead = eQueue.front();
-            eQueue.pop();
-            Node* u = adjList[qHead->vertex - 1].getHead();
+        while (!eQueue.empty()) {
+            int levelSize = eQueue.size();
+            for (int i = 0; i < levelSize; i++) {
+                Node* qHead = eQueue.front();
+                eQueue.pop();
 
-            while(u != nullptr){
-                if(color[u->vertex - 1] == Color::WHITE){
-                    color[u->vertex - 1] = Color::GRAY;
-                    distance[u->vertex - 1] = distance[qHead->vertex - 1] + 1;
-                    parent[u->vertex - 1] = qHead;
-                    eQueue.push(u);
+                // Check if qHead is nullptr
+                if (qHead == nullptr) {
+                    continue;
                 }
-                u = u->next;
+
+                // Getting the starting of Adjacency List for the current vertex
+                Node* u = adjList[qHead->vertex - 1].getHead();
+
+                while (u != nullptr) {
+                    if (color[u->vertex - 1] == Color::WHITE) {
+                        color[u->vertex - 1] = Color::GRAY;
+                        distance[u->vertex - 1] = distance[qHead->vertex - 1] + 1;
+                        parent[u->vertex - 1] = qHead;
+                        eQueue.push(u);
+                    }
+                    u = u->next;
+                }
+
+                color[qHead->vertex - 1] = Color::BLACK;
+
+                // Print the vertex at the current level with setw for formatting
+                std::cout << qHead->vertex;
             }
-            color[qHead->vertex - 1] = Color::BLACK;
+
+            std::cout << std::endl;
         }
     }
-
 
     // Print Shortest Path Function
     // - takes a source vertex and a destination vertex as arguments
     // -- prints the shortest path from the source vertex to the destination vertex
 
     void Graph::PrintShortestPath(int s, int v){
+//        BFS(s);
+
         if(v == s){
             std::cout << s << " ";
         }else if(parent[v-1] == nullptr){
