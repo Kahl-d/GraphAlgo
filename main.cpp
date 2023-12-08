@@ -14,44 +14,62 @@ using namespace GP_GRAPH;
 int main() {
 
 
+    // INPUTS HERE
+    //
 
+    // Graph 1
+    // SET VERTICES
 
-    std::vector<std::pair<int,int>> edges =
-            {
-                {1,2},{1,4},{1,5},{2,3},
-                {2,7},{3,4},{3,5},{2,6},
-                {6,7}
-            };
     std::vector<int> vertices = {1,2,3,4,5,6,7};
 
+    // SET EDGES
+    std::vector<std::pair<int,int>> edges =
+            {
+                {1,2},{1,3},{2,4},{2,5},
+                {3,6},{6,7}
+            };
+
+    // Make Graph
     Graph g(vertices,edges);
 
+    // Print Adjacency List
     g.printAdjList();
-    g.BFS(2);
 
-    g.PrintShortestPath(2,7);
-
-    std::cout <<std::endl;
-
-
-    std::cout << "Unit Test: \n" ;
-
-
-    std:: cout << test_NodeDefaultConstructor() << std::endl;
-
-//Testing LinkedList
-    std:: cout << test_LinkedListDefaultConstructor() << std::endl;
-    std:: cout << test_LinkedListAddUniqueNode() << std::endl;
+    // BFS
+    g.BFS(1);
+    g.printBFS(1);
 
 
 
-// Testing Graph
-    std:: cout << test_graphDefaultConstructor() << std::endl;
-    std:: cout << test_graphContructor1() << std::endl;
-    std:: cout << test_graphContructor2() << std::endl;
-    std:: cout << test_graphAddEdge() << std::endl;
-    std:: cout << test_graphAddVertex() << std::endl;
-    std:: cout << test_graphBFS() << std::endl;
+    // Print Shortest Path a and b)
+
+    std::cout << "Shortest Path: " << std::endl;
+    g.PrintShortestPath(1,7);
+
+
+
+//// Calling Units Tests
+//
+//
+//    std::cout <<std::endl;
+//    std::cout << "Unit Test: \n" ;
+//
+//
+//    std:: cout << test_NodeDefaultConstructor() << std::endl;
+//
+////Testing LinkedList
+//    std:: cout << test_LinkedListDefaultConstructor() << std::endl;
+//    std:: cout << test_LinkedListAddUniqueNode() << std::endl;
+//
+//
+//
+//// Testing Graph
+//    std:: cout << test_graphDefaultConstructor() << std::endl;
+//    std:: cout << test_graphContructor1() << std::endl;
+//    std:: cout << test_graphContructor2() << std::endl;
+//    std:: cout << test_graphAddEdge() << std::endl;
+//    std:: cout << test_graphAddVertex() << std::endl;
+//    std:: cout << test_graphBFS() << std::endl;
 
 
 

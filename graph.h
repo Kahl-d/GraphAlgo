@@ -3,14 +3,14 @@
 //
 
 // TODO: Implement the following:
-//Declare a class Graph                                                                             [X] DONE
-//Adopt the adjacency list representation                                                           [X] DONE
-//Represent each adjacency list as a “raw pointer”-based singly linked list                         [X] DONE
-//Include and implement the big-3
-//Member functions to construct a graph such as adding vertices and edges                           [X] DONE
-//Implement the BFS algorithm on Slide 7
-//Print out the BFS-tree from a given source vertex
-//Print the shortest path from s to v by implement the recursive algorithm on Slide 10
+//  Declare a class Graph                                                                             [X] DONE
+//  Adopt the adjacency list representation                                                           [X] DONE
+//  Represent each adjacency list as a “raw pointer”-based singly linked list                         [X] DONE
+//  Include and implement the big-3                                                                   [X] DONE
+//  Member functions to construct a graph such as adding vertices and edges                           [X] DONE
+//  Implement the BFS algorithm on Slide 7                                                            [X] DONE
+//  Print out the BFS-tree from a given source vertex                                                 [X] DONE
+//  Print the shortest path from s to v by implement the recursive algorithm on Slide 10              [X] DONE
 
 #ifndef GRAPH_GRAPH_H
 #define GRAPH_GRAPH_H
@@ -32,14 +32,11 @@ namespace GP_GRAPH{
         BLACK
     };
 
-
-
     // Node Data Structure
     struct Node{
         int vertex{-1};
         Node* next{nullptr};
     };
-
 
 
     // class Linked List to work with adjacency List
@@ -92,8 +89,6 @@ namespace GP_GRAPH{
         // Destructor
         ~Graph();
 
-
-
         // Internal Graph Member Functions
 
         void addEdge(int v1, int v2);
@@ -108,11 +103,7 @@ namespace GP_GRAPH{
          // Getters
          void printAdjList();
             int getSize();
-            std::vector<Node> getVertices();
-            std::vector<std::pair<int, int>> getEdges();
-            std::vector<LinkedList> getAdjList();
-            std::vector<Color> getColor();
-            std::vector<int> getDistance();
+
             int getParentID(int i);
 
 
@@ -120,7 +111,7 @@ namespace GP_GRAPH{
          // BFS
 
         void BFS( int s);
-        void PrintBFS();
+        void printBFS(int s);
         void PrintShortestPath( int s, int v);
 
 
@@ -139,17 +130,7 @@ namespace GP_GRAPH{
 
         int size;
 
-
-
-
-
     };
-
-
-
-
-
-
 
 }
 

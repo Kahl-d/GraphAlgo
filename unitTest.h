@@ -80,7 +80,12 @@ bool test_graphDefaultConstructor() {
 }
 // Unit Test for Graphs constructor with vertices and edges
 bool test_graphContructor1() {
-    std::vector<std::pair<int,int>> edges = {{1,2},{1,4},{1,5},{2,3},{2,7},{3,4},{3,5},{2,6},{6,7}};
+    std::vector<std::pair<int,int>> edges =
+            {
+                {1,2},{1,4},{1,5},
+                {2,3},{2,7},{3,4},
+                {3,5},{2,6},{6,7}
+            };
     std::vector<int> vertices = {1,2,3,4,5,6,7};
 
     Graph g(vertices,edges);
@@ -91,7 +96,12 @@ bool test_graphContructor1() {
 
 // Unit Test for Graphs constructor with edges
 bool test_graphContructor2() {
-    std::vector<std::pair<int,int>> edges = {{1,2},{1,4},{1,5},{2,3},{2,7},{3,4},{3,5},{2,6},{6,7}};
+    std::vector<std::pair<int,int>> edges =
+            {
+                 {1,2},{1,4},{1,5},
+                 {2,3},{2,7},{3,4},
+                 {3,5},{2,6},{6,7}
+            };
 
     Graph g(edges);
 
@@ -101,7 +111,12 @@ bool test_graphContructor2() {
 
 // Unit Test for Graphs addEdge
 bool test_graphAddEdge() {
-    std::vector<std::pair<int,int>> edges = {{1,2},{1,4},{1,5},{2,3},{2,7},{3,4},{3,5},{2,6},{6,7}};
+    std::vector<std::pair<int,int>> edges =
+            {
+                {1,2},{1,4},{1,5},
+                {2,3},{2,7},{3,4},
+                {3,5},{2,6},{6,7}
+            };
     std::vector<int> vertices = {1,2,3,4,5,6,7};
 
     Graph g(vertices,edges);
@@ -114,7 +129,12 @@ bool test_graphAddEdge() {
 
 // Unit Test for Graphs addVertex
 bool test_graphAddVertex() {
-    std::vector<std::pair<int,int>> edges = {{1,2},{1,4},{1,5},{2,3},{2,7},{3,4},{3,5},{2,6},{6,7}};
+    std::vector<std::pair<int,int>> edges =
+            {
+                {1,2},{1,4},{1,5},
+                {2,3},{2,7},{3,4},
+                {3,5},{2,6},{6,7}
+            };
     std::vector<int> vertices = {1,2,3,4,5,6,7};
 
     Graph g(vertices,edges);
@@ -128,7 +148,12 @@ bool test_graphAddVertex() {
 
 // Unit Test for Graphs BFS
 bool test_getParentID(){
-    std::vector<std::pair<int,int>> edges = {{1,2},{1,4},{1,5},{2,3},{2,7},{3,4},{3,5},{2,6},{6,7}};
+    std::vector<std::pair<int,int>> edges =
+            {
+                {1,2},{1,4},{1,5},
+                {2,3},{2,7},{3,4},
+                {3,5},{2,6},{6,7}
+            };
     std::vector<int> vertices = {1,2,3,4,5,6,7};
 
     Graph g(vertices,edges);
@@ -141,7 +166,12 @@ bool test_getParentID(){
 
 // Unit Test for Graphs BFS
 bool test_graphBFS() {
-    std::vector<std::pair<int,int>> edges = {{1,2},{1,4},{1,5},{2,3},{2,7},{3,4},{3,5},{2,6},{6,7}};
+    std::vector<std::pair<int,int>> edges =
+            {
+                {1,2},{1,4},{1,5},
+                {2,3},{2,7},{3,4},
+                {3,5},{2,6},{6,7}
+            };
     std::vector<int> vertices = {1,2,3,4,5,6,7};
 
     Graph g(vertices,edges);
@@ -150,6 +180,8 @@ bool test_graphBFS() {
 
     return true == (g.getParentID(7 - 1) == 2);
 }
+
+
 
 
 

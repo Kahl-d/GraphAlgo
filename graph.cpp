@@ -21,6 +21,7 @@
 #include <utility>
 #include <set>
 #include <queue>
+#include <iomanip>
 #include "graph.h"
 
 namespace GP_GRAPH{
@@ -35,7 +36,6 @@ namespace GP_GRAPH{
         return n1.vertex == n2.vertex;
 
     }
-
 
 
     // Overloaded < operator for Node Struct
@@ -450,20 +450,35 @@ namespace GP_GRAPH{
         }
     }
 
+
+    //Print BFS Tree Function
+    void Graph::printBFS(int s) {
+//        BFS(s);
+
+        for (int i = 0; i < size; i++) {
+            std::cout << std::setw(distance[i] * 4) << "";  // Adjust spacing based on the depth
+            if (parent[i] == nullptr) {
+                std::cout << " |--- " << i + 1 << " (Source)" << std::endl;
+            } else {
+                std::cout << " |--- " << i + 1 << std::endl;
+            }
+        }
+    }
+
+
     // Print Shortest Path Function
     // - takes a source vertex and a destination vertex as arguments
     // -- prints the shortest path from the source vertex to the destination vertex
 
     void Graph::PrintShortestPath(int s, int v){
 //        BFS(s);
-
         if(v == s){
             std::cout << s << " ";
         }else if(parent[v-1] == nullptr){
             std::cout << "No Path from " << s << " to " << v << " exists" << std::endl;
         }else{
             PrintShortestPath(s, parent[v-1]->vertex);
-            std::cout << v << " ";
+            std::cout <<"--> "<<  v << " ";
         }
     }
 
