@@ -36,11 +36,8 @@ namespace GP_GRAPH{
 
     // Node Data Structure
     struct Node{
-        int vertex;
+        int vertex{-1};
         Node* next{nullptr};
-        Color color{Color::WHITE};
-        int distance{0};
-        Node* parent{nullptr};
     };
 
 
@@ -64,6 +61,8 @@ namespace GP_GRAPH{
 
         // Getters
         Node* getHead();
+        int getSize();
+
     private:
         Node* head;
         Node* tail;

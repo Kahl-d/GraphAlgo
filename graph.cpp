@@ -75,6 +75,13 @@ namespace GP_GRAPH{
         return head;
     }
 
+    // getSize Function
+    // -- used to get the size of the linked list
+
+    int LinkedList::getSize(){
+        return size;
+    }
+
 
 //    ---------------------------------------------------------------------------------
 //    ------------------ SPECIAL FUNCTION ---------------------------------------------
@@ -93,6 +100,7 @@ namespace GP_GRAPH{
         if (head == nullptr) {
             head = newNode;
             tail = newNode;
+            size++;
         } else {
             bool found = false;
             Node* temp = head;
@@ -107,10 +115,13 @@ namespace GP_GRAPH{
             if (!found) {
                 tail->next = newNode;
                 tail = newNode;
+
+                size++;
+//                std::cout << size;
             }
         }
 
-        size++;
+
     }
 
 

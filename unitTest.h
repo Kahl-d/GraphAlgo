@@ -10,7 +10,37 @@
 
 using namespace GP_GRAPH;
 
+// Forward Declarations of Unit Tests
+
+
+// Testing struct Node
+bool test_NodeDefaultConstructor();
+
+//Testing LinkedList
+bool test_LinkedListDefaultConstructor();
+bool test_LinkedListAddUniqueNode();
+
+
+// Testing Graph
+bool test_graphDefaultConstructor();
+bool test_graphContructor1();
+bool test_graphContructor2();
+bool test_graphAddEdge();
+bool test_graphAddVertex();
+bool test_graphBFS();
+
+
+
+
+
+// Unit Test for Node
+
 inline
+bool test_NodeDefaultConstructor() {
+    Node n;
+
+    return true == (n.vertex == -1 && n.next == nullptr);
+}
 // Unit Test for LinkedList
 bool test_LinkedListDefaultConstructor() {
     LinkedList l;
@@ -18,6 +48,26 @@ bool test_LinkedListDefaultConstructor() {
     return true == (l.getHead() == nullptr);
 }
 
+
+bool test_LinkedListAddUniqueNode(){
+    LinkedList l;
+
+    l.addUniqueNode(1);
+    l.addUniqueNode(1);
+    l.addUniqueNode(2);
+    l.addUniqueNode(3);
+    l.addUniqueNode(4);
+    l.addUniqueNode(4);
+    l.addUniqueNode(5);
+    l.addUniqueNode(5);
+    l.addUniqueNode(6);
+    l.addUniqueNode(7);
+    l.addUniqueNode(7);
+
+
+    return true == (l.getSize() == 7);
+
+}
 
 // Unit Test for Graphs
 

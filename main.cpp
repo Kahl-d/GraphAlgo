@@ -32,13 +32,26 @@ int main() {
     g.PrintShortestPath(2,7);
 
     std::cout <<std::endl;
+
+
     std::cout << "Unit Test: \n" ;
+
+
+    std:: cout << test_NodeDefaultConstructor() << std::endl;
+
+//Testing LinkedList
+    std:: cout << test_LinkedListDefaultConstructor() << std::endl;
+    std:: cout << test_LinkedListAddUniqueNode() << std::endl;
+
+
+
+// Testing Graph
     std:: cout << test_graphDefaultConstructor() << std::endl;
     std:: cout << test_graphContructor1() << std::endl;
     std:: cout << test_graphContructor2() << std::endl;
-    std:: cout <<test_graphAddEdge() << std::endl;
-    std:: cout <<test_graphAddVertex() << std::endl;
-    std:: cout <<test_graphBFS() << std::endl;
+    std:: cout << test_graphAddEdge() << std::endl;
+    std:: cout << test_graphAddVertex() << std::endl;
+    std:: cout << test_graphBFS() << std::endl;
 
 
 
