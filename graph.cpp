@@ -1,18 +1,3 @@
-//
-// Created by Khalid Khan on 12/5/23.
-//
-
-// TODO: Implement the following:
-//Declare a class Graph                                                                             [X] DONE
-//Adopt the adjacency list representation                                                           [X] DONE
-//Represent each adjacency list as a “raw pointer”-based singly linked list                         [X] DONE
-//Include and implement the big-3
-//Member functions to construct a graph such as adding vertices and edges                           [X] DONE
-//Implement the BFS algorithm on Slide 7
-//Print out the BFS-tree from a given source vertex
-//Print the shortest path from s to v by implement the recursive algorithm on Slide 10
-
-
 #ifndef GRAPH_H
 #define GRAPH_H
 
@@ -452,7 +437,7 @@ namespace GP_GRAPH{
 
 
     //Print BFS Tree Function
-    void Graph::printBFS(int s) {
+    void Graph::printBFSTree(int s) {
 //        BFS(s);
 
         for (int i = 0; i < size; i++) {

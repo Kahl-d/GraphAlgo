@@ -1,5 +1,6 @@
 //
-// Created by Khalid Khan on 12/5/23.
+// Created on 12/5/23.
+// Group 3 Khalid, Jaylene, Diya, Dani
 //
 
 // TODO: Implement the following:
@@ -111,7 +112,7 @@ namespace GP_GRAPH{
          // BFS
 
         void BFS( int s);
-        void printBFS(int s);
+        void printBFSTree(int s);
         void PrintShortestPath( int s, int v);
 
 

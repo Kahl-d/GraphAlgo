@@ -37,7 +37,7 @@ int main() {
 
     // BFS
     g.BFS(1);
-    g.printBFS(1);
+    g.printBFSTree(1);
 
 
 
