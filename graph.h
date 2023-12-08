@@ -2,9 +2,20 @@
 // Created by Khalid Khan on 12/5/23.
 //
 
+// TODO: Implement the following:
+//Declare a class Graph                                                                             [X] DONE
+//Adopt the adjacency list representation                                                           [X] DONE
+//Represent each adjacency list as a “raw pointer”-based singly linked list                         [X] DONE
+//Include and implement the big-3
+//Member functions to construct a graph such as adding vertices and edges                           [X] DONE
+//Implement the BFS algorithm on Slide 7
+//Print out the BFS-tree from a given source vertex
+//Print the shortest path from s to v by implement the recursive algorithm on Slide 10
+
 #ifndef GRAPH_GRAPH_H
 #define GRAPH_GRAPH_H
 
+// Include Statements
 #include <iostream>
 #include <vector>
 #include <utility>
@@ -32,23 +43,27 @@ namespace GP_GRAPH{
         Node* parent{nullptr};
     };
 
+
+
     // class Linked List to work with adjacency List
 
     class LinkedList {
     public:
         // Default Constructor
         LinkedList();
+
         //Destructor
         ~LinkedList();
+
+        // member functions
+        // checks for unique node when adding in the list
+        void addNode(int v);
 
         void addUniqueNode(int v);
         void printList();
 
+        // Getters
         Node* getHead();
-
-
-
-
     private:
         Node* head;
         Node* tail;
@@ -63,10 +78,10 @@ namespace GP_GRAPH{
         //Deafult Constructor
         Graph();
 
-        //Constructor with edges
+        //Constructor given edges
         Graph(std::vector<std::pair<int, int>> edges);
 
-        //Construcotr with vertices and edges
+        //Construcotr given vertices and edges
         Graph(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList);
 
         // Copy Constructor
@@ -75,15 +90,20 @@ namespace GP_GRAPH{
         // Assignment Operator
         Graph& operator=(const Graph& g);
 
+        // Destructor
+        ~Graph();
 
 
 
         // Internal Graph Member Functions
-        ~Graph();
+
         void addEdge(int v1, int v2);
         void addNode(int v);
-        void updateAdjList();
 
+        // Helper Functions
+        // Automatically updates the adjacency list once a new edge is added
+        // or a new vertex is added
+        void updateAdjList();
 
 
          // Getters
@@ -94,18 +114,16 @@ namespace GP_GRAPH{
             std::vector<LinkedList> getAdjList();
             std::vector<Color> getColor();
             std::vector<int> getDistance();
-            std::vector<Node*> getParent();
-
+            int getParentID(int i);
 
 
          // Algorithms
          // BFS
 
-
-
-
         void BFS( int s);
+        void PrintBFS();
         void PrintShortestPath( int s, int v);
+
 
     private:
         std::vector<Node> vertices;

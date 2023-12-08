@@ -36,6 +36,8 @@ namespace GP_GRAPH{
 
     }
 
+
+
     // Overloaded < operator for Node Struct
     bool operator<(const Node& n1, const Node& n2) {
         return n1.vertex < n2.vertex;
@@ -157,22 +159,11 @@ namespace GP_GRAPH{
 
         for (std::pair<int, int> edge: edgeList) {
 
-            Node v1;
-            v1.vertex = edge.first;
-            Node v2;
-            v2.vertex = edge.second;
-
-            std::pair<int, int> newEdge;
-            newEdge = std::make_pair(edge.first, edge.second);
-            edges.push_back(newEdge);
-
-            vertices.push_back(v1);
-            vertices.push_back(v2);
+            addEdge(edge.first, edge.second);
+            addNode(edge.first);
+            addNode(edge.second);
 
         }
-
-
-
 
         updateAdjList();
 
@@ -188,13 +179,7 @@ namespace GP_GRAPH{
 
         for (std::pair<int, int> edge: edgeList) {
 
-            Node v1;
-            v1.vertex = edge.first;
-            Node v2;
-            v2.vertex = edge.second;
-
-            std::pair<int, int> newEdge = std::make_pair(edge.first, edge.second);
-            edges.push_back(newEdge);
+            addEdge(edge.first, edge.second);
 
         }
 
@@ -293,37 +278,46 @@ namespace GP_GRAPH{
         return size;
     }
 
+    int Graph::getParentID(int i){
+        return parent[i]->vertex;
 
-
-    //addEdge member Function
-
-    void Graph::addEdge(int v1, int v2){
-        // make a pair given two vertices
-        Node v1Node;
-        v1Node.vertex = v1;
-        Node v2Node;
-        v2Node.vertex = v2;
-
-        std::pair<int, int> edge = std::make_pair(v1, v2);
-        edges.push_back(edge);
-
-        vertices.push_back(v1Node);
-        vertices.push_back(v2Node);
-        updateAdjList();
     }
 
 
-    //addNode Function
 
-    void Graph::addNode(int v){
-       Node newNode;
-         newNode.vertex = v;
-         vertices.push_back(newNode);
+// addEdge member Function
+    void Graph::addEdge(int v1, int v2) {
+        // Check if the vertices already exist, and add them if not
+        addNode(v1);
+        addNode(v2);
 
-        size = vertices.size();
-        color.resize(size);
-        distance.resize(size);
-        parent.resize(size);
+        // Make a pair given two vertices
+        std::pair<int, int> edge = std::make_pair(v1, v2);
+        edges.push_back(edge);
+
+        // Update adjacency list
+        updateAdjList();
+    }
+
+// addNode Function
+    void Graph::addNode(int v) {
+        // Check if the vertex already exists
+        auto it = std::find_if(vertices.begin(), vertices.end(), [v](const Node& node) {
+            return node.vertex == v;
+        });
+
+        // If not found, add the new node
+        if (it == vertices.end()) {
+            Node newNode;
+            newNode.vertex = v;
+            vertices.push_back(newNode);
+
+            // Update size and resize other arrays
+            size = vertices.size();
+            color.resize(size);
+            distance.resize(size);
+            parent.resize(size);
+        }
     }
 
 
@@ -379,7 +373,13 @@ namespace GP_GRAPH{
 
 
     // Destructor
+    // - destroys the graph object
+    // -- destroys the adjacency list
+    // --- Adjacency list ddestroys itseld as it has a destructor
     Graph::~Graph(){
+        for(int i = 0; i < adjList.size(); i++){
+            adjList[i].~LinkedList();
+        }
 
     }
 
@@ -432,10 +432,10 @@ namespace GP_GRAPH{
                 color[qHead->vertex - 1] = Color::BLACK;
 
                 // Print the vertex at the current level with setw for formatting
-                std::cout << qHead->vertex;
+//                std::cout << qHead->vertex;
             }
 
-            std::cout << std::endl;
+//            std::cout << std::endl;
         }
     }
 
@@ -444,7 +444,7 @@ namespace GP_GRAPH{
     // -- prints the shortest path from the source vertex to the destination vertex
 
     void Graph::PrintShortestPath(int s, int v){
-        BFS(s);
+//        BFS(s);
 
         if(v == s){
             std::cout << s << " ";
@@ -455,8 +455,6 @@ namespace GP_GRAPH{
             std::cout << v << " ";
         }
     }
-
-
 
 
 
